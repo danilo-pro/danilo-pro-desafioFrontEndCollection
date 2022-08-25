@@ -1,0 +1,12 @@
+main > div {
+    background-color: var(--bg-secondary);
+    color: #fff;
+}
+
+hr {
+    background-color: #fcb900;
+}
+
+p {
+    color: #fff;
+}

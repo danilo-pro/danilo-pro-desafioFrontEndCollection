@@ -1,0 +1,21 @@
+aside.menu-area {
+    background-color: var(--bg-secondary);
+    border-top: 1px solid var(--bg-primary);
+    border-bottom: 1px solid var(--bg-primary);
+}
+
+.menu a {
+    display: block;
+    text-decoration: none;
+    color: #fcb900;
+    font-weight: bold;
+    padding: 15px;
+    margin: 5px;
+    border: 2px solid #fcb900;
+    border-radius: 10px;
+}
+
+.menu a:hover {
+    color: var(--bg-secondary);
+    background-color: #fcb900;
+}

@@ -7,7 +7,7 @@
 
     --logo-height: 150px;
     --header-height: 150px;
-    --aside-width: 500px;
+    --aside-width: 300px;
     --footer-height: 50px;
 }
 
@@ -26,7 +26,7 @@
         var(--footer-height);
     grid-template-areas: 
         "logo header"
-        "content content"
+        "menu content"
         "footer footer";
     height: 100vh;
     background-color: var(--bg-primary);
@@ -38,6 +38,10 @@ aside.logo {
 
 header.header {
     grid-area: header;
+}
+
+aside.menu-area {
+    grid-area: menu;
 }
 
 main.content {
