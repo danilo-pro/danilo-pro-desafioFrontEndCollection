@@ -4,9 +4,26 @@ main > div {
 }
 
 hr {
+    height: 2px;
     background-color: #fcb900;
 }
 
 p {
     color: #fff;
+}
+
+.card {
+    width: 300px;
+    padding: 5px;
+    margin: 20px 20px;
+    background-color: var(--bg-card);    
+    color: #fcb900;
+}
+
+.card:hover {
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.4);
+}
+
+.btn-primary {
+    margin: 0 10px 0 0;
 }

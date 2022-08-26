@@ -3,7 +3,7 @@
 :root {
     --bg-primary: #1a1a1a;
     --bg-secondary: #363636;
-    --bg-card: #000;
+    --bg-card: #1a1a1a;
 
     --logo-height: 150px;
     --header-height: 150px;
@@ -14,6 +14,10 @@
 * {
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+}
+
+html {    
+    background-color: var(--bg-primary);
 }
 
 .app {
