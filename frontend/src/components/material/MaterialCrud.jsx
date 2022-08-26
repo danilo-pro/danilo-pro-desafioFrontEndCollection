@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Main from "../template/Main";
+import { useState } from "react";
 
 const headerProps = {
     icon: "list",
@@ -57,19 +58,26 @@ export default class MaterialCrud extends Component {
         });
     }
 
-    searchDescription() {
+    searchDescriptionAndLine() {
+        const handleInputChange = (e) => {
+            e.preventDefault();
+            console.log(e.traget.value);
+        }
+
         return (
-            <form>
-                <div class="form-row">
-                    <div class="form-group col">
+            <form className="mx-5">
+                <div class="form-row d-flex flex-wrap justify-content-around w-100">
+                    <div class="col-md-6 mt-3">
                         <label for="descricao">Buscar por descrição</label>
-                        <input id="descricao" type="text" class="form-control" placeholder="Descrição" />
+                        <input id="descricao" type="text" class="form-control" placeholder="Descrição"
+                            
+                            onChange={handleInputChange} />
                     </div>
-                    <div class="form-group col">
+                    <div class="col-md-5 mt-3">
                         <label for="linha">Buscar por linha</label>
                         <input id="linha" type="text" class="form-control" placeholder="Linha" />
                     </div>
-                    <div class="form-group col">
+                    <div class="col-md-1 mt-3">
                         <button type="submit" class="btn btn-success">Adicionar</button>
                     </div>
                 </div>
@@ -97,7 +105,7 @@ export default class MaterialCrud extends Component {
         console.log(this.state.list);
         return (
             <Main {...headerProps}>
-                    {this.searchDescription()}
+                    {this.searchDescriptionAndLine()}
                     <div className="d-inline-flex flex-wrap justify-content-center">
                         {this.renderCards()}
                     </div>
