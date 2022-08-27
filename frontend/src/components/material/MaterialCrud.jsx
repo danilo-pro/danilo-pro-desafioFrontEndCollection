@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Main from "../template/Main";
-import { useState } from "react";
 
 const headerProps = {
     icon: "list",
@@ -12,7 +11,9 @@ const headerProps = {
 const baseUrl = "http://localhost:3001/materials";
 const initialState = {
     material: { name: "", email: "" },
-    list: []
+    list: [],
+    description: "",
+    line: "",
 }
 
 export default class MaterialCrud extends Component {
@@ -39,50 +40,67 @@ export default class MaterialCrud extends Component {
             });
     }
 
-    getUpdatedList(material) {
+    getUpdatedList(material, add = true) {
         const list = this.state.list.filter(m => m.id !== material.id);
-        if(material) {
+
+        if(add) {
             list.unshift(material);
         }
+
         return list;
     }
 
     load(material) {
         this.setState({ material });
+        console.log(material);
     }
 
     remove(material) {
         axios.delete(`${baseUrl}/${material.id}`).then(resp => {
-            const list = this.getUpdatedList(null);
-            this.setState({ list });
+            const list = this.getUpdatedList(material, false);
+            this.state({ list });
         });
     }
 
+    setSearchDescription(e) {
+        console.log(e, this.state.list);
+        const list = this.state.list.filter((m) => m.description.toLowerCase().includes(e.toLowerCase(this.state.description)));
+        
+        this.setState({ list });
+    }
+    
+    setSearchLine(e) {
+        console.log(e, this.state.list);
+
+        const list = this.state.list.filter((m) => m.line.toLowerCase().includes(e.toLowerCase(this.state.line)));
+
+        this.setState({ list });
+    }
+
     searchDescriptionAndLine() {
-        const handleInputChange = (e) => {
-            e.preventDefault();
-            console.log(e.traget.value);
-        }
+        const { description, line } = this.props;
 
         return (
             <form className="mx-5">
-                <div class="form-row d-flex flex-wrap justify-content-around w-100">
-                    <div class="col-md-6 mt-3">
-                        <label for="descricao">Buscar por descrição</label>
-                        <input id="descricao" type="text" class="form-control" placeholder="Descrição"
-                            
-                            onChange={handleInputChange} />
+                <div className="form-row d-flex flex-wrap justify-content-around w-100">
+                    <div className="col-md-6 mt-3">
+                        <label>Buscar por descrição</label>
+                        <input type="text" className="form-control" placeholder="Descrição"
+                            value={description} 
+                            onChange={e => this.setSearchDescription(e.target.value)} />
                     </div>
-                    <div class="col-md-5 mt-3">
-                        <label for="linha">Buscar por linha</label>
-                        <input id="linha" type="text" class="form-control" placeholder="Linha" />
+                    <div className="col-md-5 mt-3">
+                        <label>Buscar por linha</label>
+                        <input type="text" className="form-control" placeholder="Linha"
+                            value={line}
+                            onChange={e => this.setSearchLine(e.target.value)} />
                     </div>
-                    <div class="col-md-1 mt-3">
-                        <button type="submit" class="btn btn-success">Adicionar</button>
+                    <div className="col-md-1 mt-3">
+                        <button type="btn btn-success" className="btn btn-success">Adicionar</button>
                     </div>
                 </div>
             </form>
-        )        
+        );
     }
 
     renderCards() {
@@ -93,8 +111,8 @@ export default class MaterialCrud extends Component {
                     <div className="card-body align-self-start">
                         <h5 className="card-title">Descrição: {material.description}</h5>
                         <p className="card-text">Linha: {material.line}</p>
-                        <button className="btn btn-primary">Editar</button>
-                        <button className="btn btn-danger">Exlcuir</button>
+                        <button className="btn btn-primary" onClick={() => this.load(material)}>Editar</button>
+                        <button className="btn btn-danger" onClick={() => this.remove(material)}>Exlcuir</button>
                     </div>
                 </div>
             );
@@ -102,7 +120,6 @@ export default class MaterialCrud extends Component {
     }
 
     render() {
-        console.log(this.state.list);
         return (
             <Main {...headerProps}>
                     {this.searchDescriptionAndLine()}
