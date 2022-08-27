@@ -58,7 +58,7 @@ export default class MaterialCrud extends Component {
     remove(material) {
         axios.delete(`${baseUrl}/${material.id}`).then(resp => {
             const list = this.getUpdatedList(material, false);
-            this.state({ list });
+            this.setState({ list });
         });
     }
 
